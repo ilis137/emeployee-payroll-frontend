@@ -1,0 +1,137 @@
+.container {
+  padding: 40px 20%;
+}
+
+.form {
+  padding: 30px 50px;
+}
+
+.main-tag{
+  color:#42515F;
+}
+.name-input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #bdbdbd;
+  border-radius: 3px;
+}
+.form-header {
+  text-align: left;
+  font: normal normal bold 22px/34px Roboto;
+  letter-spacing: 0px;
+  color: #42515f;
+  text-transform: capitalize;
+  opacity: 1;
+}
+
+.form-content {
+  margin-top: 20px;
+}
+
+.width {
+  width: 80%;
+}
+
+.ml {
+  margin-left: 65px;
+}
+
+.profile {
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 0px;
+  margin-right: 15px;
+}
+
+.profile-ml {
+  margin-left: 20px;
+}
+
+.Gender-ml {
+  margin-left: 58px;
+}
+
+.department-ml {
+  margin-left: 30px;
+  display: inline-block;
+}
+
+
+
+.salary-ml {
+  margin-left: 80px;
+  width:50%;
+}
+
+/* .mat-mdc-form-field  .mat-mdc-text-field-wrapper{
+  padding: 0;
+} */
+.salary-select{
+  border: 1px solid #BDBDBD;
+  height:30px;
+  padding: 0 10px;
+  width:90%;
+}
+.date-ml {
+  margin-left: 40px;
+}
+
+.Note-ml {
+  margin-right: 62px;
+}
+.note-container{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #bdbdbd;
+  border-radius: 3px;
+}
+
+.button-flex {
+  display: flex;
+  margin-bottom: 50px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mdc-button {
+  border: 1px solid #969696;
+  background-color: #e2e2e2 !important;
+  width: 150px;
+  padding: 20px 0;
+}
+.cancel {
+  text-align: center;
+
+  color: #42515f !important;
+  background-color: #e2e2e2 !important;
+}
+
+.reset {
+  margin-right: 50px;
+  margin-left: 30px;
+}
+
+.submit {
+  background-color: #82a70c !important;
+  color: #f7f7f7 !important;
+}
+/deep/ .mat-mdc-radio-group .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control{
+  accent-color:#82a70c !important;
+border: 1px solid #B4B4B4;
+}
+/deep/ .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix{
+  padding-top: 0;
+}
+ .mat-checkbox-ripple .mat-ripple-element {
+  background-color: black !important;
+}
+
+ .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: black !important;
+}

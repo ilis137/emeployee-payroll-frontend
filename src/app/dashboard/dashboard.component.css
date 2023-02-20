@@ -1,0 +1,93 @@
+.container {
+  padding: 0 10%;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3% 0;
+}
+.title {
+  color: #42515f;
+  font: normal normal bold 28px/25px Roboto;
+}
+.options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.add-button {
+  padding: 13px 25px;
+  background-color: #82a70c !important;
+  color: #ffffff !important;
+  border: none;
+  font-size: medium;
+}
+.search-button {
+  border-radius: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  color: #40494d !important;
+  margin-right: 10px;
+}
+.search-button > .icon {
+  margin: 0;
+}
+.icon {
+  height: 24px !important;
+  width: 24px !important;
+  font-size: 24px !important;
+}
+.mat-mdc-table .mdc-data-table__header-row {
+  background-color: #42515f;
+ 
+}
+.mdc-data-table__header-cell{
+  text-transform: uppercase;
+  color: #ffffff!important;
+  font-weight: normal;
+  text-align: left;
+}
+.cell{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.mdc-evolution-chip-set .mdc-evolution-chip{
+  background-color: #E9FEA5;
+}
+.profile{
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 70px;
+ 
+}
+.profile-header{
+  max-width: 70px;
+}
+.name-header{
+  padding-left: 0px;
+}
+.name{
+ 
+  padding-left: 0px;
+}
+
+.cell .icon{
+ color:#658292; 
+ cursor:pointer;
+}
+.actions{
+  width:110px;
+}
+.action-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:65px;
+}
+/* .cell.actions > .edit{
+  margin-left: 20px;
+} */

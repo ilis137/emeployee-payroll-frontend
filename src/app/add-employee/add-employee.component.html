@@ -1,0 +1,189 @@
+<!-- <div>Form Value : {{employeeform.value | json}}</div> -->
+<div class="container">
+  <!-- #employeeform = 'ngForm' -->
+  <mat-card>
+    <form [formGroup]="employeeForm" class="form">
+      <div class="form-header">Employee Payroll From</div>
+
+      <div class="form-content">
+        <!-- Creating name section in form -->
+        <mat-label class="main-tag">Name</mat-label>
+        <mat-form-field class="width ml" appearance="outline">
+          <input
+            class="name-input"
+            type="text"
+            matInput
+            formControlName="employeeName"
+          />
+        </mat-form-field>
+
+        <br />
+
+        <!-- Creating profile image selection section in form -->
+        <mat-label class="main-tag">Profile image</mat-label>
+        <mat-radio-group class="profile-ml" formControlName="image">
+          <mat-radio-button
+            class="radio-btn"
+            color="primary"
+            value="assets/profile-images/Ellipse -1.png"
+          >
+            <img
+              class="profile"
+              src="assets/profile-images/Ellipse -1.png"
+              alt="1"
+            />
+          </mat-radio-button>
+
+          <mat-radio-button
+            class="radio-btn"
+            style="margin-left: 10px"
+            color="primary"
+            value="assets/profile-images/Ellipse -2.png"
+          >
+            <img
+              class="profile"
+              src="assets/profile-images/Ellipse -2.png"
+              alt="2"
+            />
+          </mat-radio-button>
+
+          <mat-radio-button
+            class="radio-btn"
+            style="margin-left: 10px"
+            color="primary"
+            value="assets/profile-images/Ellipse -3.png"
+          >
+            <img
+              class="profile"
+              src="assets/profile-images/Ellipse -3.png"
+              alt="3"
+            />
+          </mat-radio-button>
+
+          <mat-radio-button
+            class="radio-btn"
+            style="margin-left: 10px"
+            color="primary"
+            value="assets/profile-images/Ellipse -4.png"
+          >
+            <img
+              class="profile"
+              src="assets/profile-images/Ellipse -4.png"
+              alt="4"
+            />
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <br />
+        <br />
+
+        <!-- Creating gender selection section -->
+
+        <mat-label class="main-tag">Gender</mat-label>
+        <mat-radio-group class="Gender-ml" formControlName="gender">
+          <mat-radio-button class="radio-btn" color="primary" value="Male">
+            <mat-label class="text">Male</mat-label>
+          </mat-radio-button>
+
+          <mat-radio-button
+            class="radio-btn"
+            style="margin-left: 33px"
+            color="primary"
+            value="Female"
+          >
+            <mat-label class="text">Female</mat-label>
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <br />
+        <br />
+
+        <!-- Creating Department selection section -->
+
+        <mat-label class="main-tag">Department</mat-label>
+        <section class="department-ml">
+          <mat-checkbox >
+            <mat-label>HR</mat-label>
+          </mat-checkbox>
+          <mat-checkbox style="margin-left: 20px">
+            <mat-label>Sales</mat-label>
+          </mat-checkbox>
+          <mat-checkbox style="margin-left: 20px">
+            <mat-label>Finance</mat-label>
+          </mat-checkbox>
+          <mat-checkbox style="margin-left: 20px">
+            <mat-label>Engineer</mat-label>
+          </mat-checkbox>
+          <mat-checkbox style="margin-left: 20px">
+            <mat-label>Other</mat-label>
+          </mat-checkbox>
+        </section>
+
+        <br />
+        <br />
+
+        <!-- Creating salary selection section -->
+
+        <mat-label class="main-tag">Salary</mat-label>
+
+        <mat-slider
+         
+          color="primary"
+          class="salary-ml"
+          thumbLabel
+          discrete 
+          [displayWith]="formatLabel"
+          tickInterval="1000"
+          step="10000"
+          min="10000"
+          max="100000"
+        >
+          <input matSliderThumb  formControlName="salary" />
+        </mat-slider>
+
+        <br />
+        <br />
+
+        <!-- Creating Start date selection section -->
+        <!-- 
+        <mat-label class="main-tag">Start Date</mat-label>
+        <mat-form-field class="date-ml" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker> 
+        </mat-form-field> -->
+
+        <br />
+        <br />
+
+        <!-- Creating Note section -->
+        <div class="note-container">
+          <mat-label class="main-tag">Note</mat-label>
+          <mat-form-field class="Note-ml width" appearance="outline">
+            <textarea
+              matInput
+              class="input"
+              style="height: 70px"
+              formControlName="note"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <br />
+
+        <div class="button-flex">
+          <button class="cancel" routerLink="/dashboard" mat-flat-button>
+            Cancel
+          </button>
+
+          <div class="right-buttons">
+            <button class="submit" type="submit" mat-flat-button>Submit</button>
+            <button class="reset" type="reset" mat-flat-button>Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

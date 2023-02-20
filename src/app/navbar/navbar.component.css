@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  padding:0 10% ;
+}
+
+
+img {
+  
+  width: 50px;
+  height: 50px;
+  /* UI Properties */
+  /* border: 1px solid #42515F; */
+  cursor: pointer;
+  opacity: 1;
+}
+.employee {
+  color: #82a70c;
+  
+}
+.payroll { 
+  color: #42515F;
+  padding-top: 0px;;
+}
+
+.title-container {
+  padding-left:5px;
+  /* UI Properties */
+  text-align: left;
+  font: normal normal bold 22px/25px Roboto ;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  opacity: 1;
+
+}
+
+.bg-color {
+  background-color: #FFFF;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row{
+  padding: 0;
+}

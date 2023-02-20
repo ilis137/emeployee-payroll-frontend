@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="title">Employee Details</div>
+
+    <div class="options">
+      <button mat-raised-button class="search-button">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="search"
+          class="icon"
+        ></mat-icon>
+      </button>
+      <button mat-flat-button routerLink="/add" class="add-button">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="add"
+          class="icon"
+        ></mat-icon>
+        Add User
+      </button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="displayedColumns[0]">
+      <th class="profile-header" mat-header-cell *matHeaderCellDef>
+        {{ displayedColumns[0] }}
+      </th>
+      <td class="profile cell" mat-cell *matCellDef="let element">
+        <img [src]="element.profileUrl" alt="" />
+      </td>
+    </ng-container>
+
+
+    <ng-container [matColumnDef]="displayedColumns[1]">
+      <th class="name-header" mat-header-cell *matHeaderCellDef>
+        {{ displayedColumns[1] }}
+      </th>
+      <td class="name cell" mat-cell *matCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="displayedColumns[2]">
+      <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[2] }}</th>
+      <td class="cell" mat-cell *matCellDef="let element">
+        {{ element.gender }}
+      </td>
+    </ng-container>
+
+    
+    <ng-container [matColumnDef]="displayedColumns[3]">
+      <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[3] }}</th>
+      <td class="cell" mat-cell *matCellDef="let element">
+        <mat-chip-listbox aria-label="Fish selection">
+          <mat-chip *ngFor="let department of element.departMent">{{
+            department
+          }}</mat-chip>
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="displayedColumns[4]">
+      <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[4] }}</th>
+      <td class="cell" mat-cell *matCellDef="let element">
+        {{ element.salary }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="displayedColumns[5]">
+      <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[5] }}</th>
+      <td class="cell" mat-cell *matCellDef="let element">
+        {{ element.startDate }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="displayedColumns[6]">
+      <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[6] }}</th>
+      <td class="cell actions" mat-cell *matCellDef="let element">
+        <div class="action-container">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="delete"
+            class="icon"
+          ></mat-icon>
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="edit"
+            class="icon edit"
+          ></mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

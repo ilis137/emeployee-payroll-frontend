@@ -1,8 +1,8 @@
-<!-- <div>Form Value : {{employeeform.value | json}}</div> -->
+
 <div class="container">
   <!-- #employeeform = 'ngForm' -->
   <mat-card>
-    <form [formGroup]="employeeForm" class="form">
+    <form [formGroup]="employeeForm" class="form" (ngSubmit)="submitForm()">
       <div class="form-header">Employee Payroll From</div>
 
       <div class="form-content">
@@ -15,6 +15,13 @@
             matInput
             formControlName="employeeName"
           />
+          <mat-hint align="end">{{fullName.value.length||0}}/30</mat-hint>
+          <mat-error *ngIf="myError('employeeName', 'required')">This is a required field</mat-error>
+          <mat-error *ngIf="myError('employeeName', 'minlength')">Name should contain at least 3 characters</mat-error>
+          <mat-error *ngIf="myError('employeeName', 'maxlength')">Name should contain at most 30 characters</mat-error>
+          <!-- <mat-error *ngIf="employeeForm.get('name')?.hasError('required')">This is a required field</mat-error> -->
+     
+  
         </mat-form-field>
 
         <br />
@@ -22,56 +29,19 @@
         <!-- Creating profile image selection section in form -->
         <mat-label class="main-tag">Profile image</mat-label>
         <mat-radio-group class="profile-ml" formControlName="image">
-          <mat-radio-button
+          <mat-radio-button *ngFor="let profile of profiles"
             class="radio-btn"
             color="primary"
-            value="assets/profile-images/Ellipse -1.png"
+            [value]="profile"
           >
             <img
               class="profile"
-              src="assets/profile-images/Ellipse -1.png"
+              [src]="profile"
               alt="1"
             />
           </mat-radio-button>
 
-          <mat-radio-button
-            class="radio-btn"
-            style="margin-left: 10px"
-            color="primary"
-            value="assets/profile-images/Ellipse -2.png"
-          >
-            <img
-              class="profile"
-              src="assets/profile-images/Ellipse -2.png"
-              alt="2"
-            />
-          </mat-radio-button>
-
-          <mat-radio-button
-            class="radio-btn"
-            style="margin-left: 10px"
-            color="primary"
-            value="assets/profile-images/Ellipse -3.png"
-          >
-            <img
-              class="profile"
-              src="assets/profile-images/Ellipse -3.png"
-              alt="3"
-            />
-          </mat-radio-button>
-
-          <mat-radio-button
-            class="radio-btn"
-            style="margin-left: 10px"
-            color="primary"
-            value="assets/profile-images/Ellipse -4.png"
-          >
-            <img
-              class="profile"
-              src="assets/profile-images/Ellipse -4.png"
-              alt="4"
-            />
-          </mat-radio-button>
+        
         </mat-radio-group>
 
         <br />
@@ -102,21 +72,10 @@
 
         <mat-label class="main-tag">Department</mat-label>
         <section class="department-ml">
-          <mat-checkbox color="primary">
-            <mat-label>HR</mat-label>
+          <mat-checkbox *ngFor="let department of departments;index as i" [style.margin-left]="i?'20px':'0px'" (change)="onDepartmentChange($event)" [value]="department"color="primary">
+            <mat-label>{{department}}</mat-label>
           </mat-checkbox>
-          <mat-checkbox style="margin-left: 20px" color="primary">
-            <mat-label>Sales</mat-label>
-          </mat-checkbox>
-          <mat-checkbox style="margin-left: 20px" color="primary">
-            <mat-label>Finance</mat-label>
-          </mat-checkbox>
-          <mat-checkbox style="margin-left: 20px" color="primary">
-            <mat-label>Engineer</mat-label>
-          </mat-checkbox>
-          <mat-checkbox style="margin-left: 20px" color="primary">
-            <mat-label>Other</mat-label>
-          </mat-checkbox>
+         
         </section>
 
         <br />
@@ -125,9 +84,8 @@
         <!-- Creating salary selection section -->
 
         <mat-label class="main-tag">Salary</mat-label>
-
-        <mat-slider
-         
+      
+        <mat-slider        
           color="primary"
           class="salary-ml"
           thumbLabel
@@ -139,6 +97,7 @@
           max="100000"
         >
           <input matSliderThumb  formControlName="salary" />
+      
         </mat-slider>
 
         <br />
@@ -153,6 +112,7 @@
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker  #picker></mat-datepicker> 
+                <mat-error *ngIf="myError('date', 'required')">This is a required field</mat-error>
         </mat-form-field>
 
         <br />
@@ -168,6 +128,8 @@
               style="height: 70px"
               formControlName="note"
             ></textarea>
+          <mat-error *ngIf="myError('note', 'required')">This is a required field</mat-error>
+
           </mat-form-field>
         </div>
 
@@ -179,8 +141,8 @@
           </button>
 
           <div class="right-buttons">
-            <button class="submit" type="submit" mat-flat-button>Submit</button>
-            <button class="reset" type="reset" mat-flat-button>Reset</button>
+            <button class="submit"  type="submit" mat-flat-button>Submit</button>
+            <button class="reset"  (click)="resetForm()" type="reset" mat-flat-button>Reset</button>
           </div>
         </div>
       </div>

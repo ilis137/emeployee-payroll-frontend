@@ -54,7 +54,7 @@
       <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[3] }}</th>
       <td class="cell" mat-cell *matCellDef="let element">
         <mat-chip-listbox aria-label="Fish selection">
-          <mat-chip *ngFor="let department of element.departMent">{{
+          <mat-chip *ngFor="let department of element.department">{{
             department
           }}</mat-chip>
         </mat-chip-listbox>
@@ -71,7 +71,7 @@
     <ng-container [matColumnDef]="displayedColumns[5]">
       <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[5] }}</th>
       <td class="cell" mat-cell *matCellDef="let element">
-        {{ element.startDate }}
+        {{ element.startDate | date:'dd MMM yyyy' }}
       </td>
     </ng-container>
 

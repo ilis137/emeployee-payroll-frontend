@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../employee.service';
 
 let data:any={
   "employee": [
     {
       "name": "mohit kumar new",
       "gender": "male",
-      "departMent": [
+      "department": [
         "HR","engineering"
       ],
       "salary": "30000",
@@ -17,7 +19,7 @@ let data:any={
     {
       "name": "mohit kumar test",
       "gender": "male",
-      "departMent": [
+      "department": [
         "HR"
       ],
       "salary": "30000",
@@ -29,7 +31,7 @@ let data:any={
     {
       "name": "mohit",
       "gender": "male",
-      "departMent": [
+      "department": [
         "HR"
       ],
       "salary": "30000",
@@ -41,7 +43,7 @@ let data:any={
     {
       "name": "test",
       "gender": "male",
-      "departMent": [
+      "department": [
         "HR"
       ],
       "salary": "30000",
@@ -60,4 +62,23 @@ let data:any={
 export class DashboardComponent {
   dataSource=data.employee;
   displayedColumns: string[] = [' ','name','gender', 'department', 'salary', 'start date','actions'];
+
+  constructor( private router: Router,private employeeService:EmployeeService){}
+  
+  ngOnInit(){
+    //component interaction using property exchage with history api
+    const data=history.state.data;
+    console.log('data :>> ', data);
+    // if(data){
+    //  this.dataSource.push(history.state.data)
+    //   history.pushState({data:null},'',this.router.url);
+      
+    //   console.log(' history.state.data :>> ',  history.state.data);
+    // }
+
+    //component interaction using shared service
+    this.employeeService.getData().subscribe(employee=>{
+      this.dataSource.push(employee)
+    })
+  }
 }

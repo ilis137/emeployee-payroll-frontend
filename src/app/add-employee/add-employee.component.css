@@ -121,6 +121,10 @@
   background-color: #82a70c !important;
   color: #f7f7f7 !important;
 }
+.submit:disabled{
+  background-color: #e2e2e2aa !important;
+  color: #42515fcc !important;
+}
 /deep/ .mat-mdc-radio-group .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control{
   accent-color:#82a70c !important;
 border: 1px solid #B4B4B4;

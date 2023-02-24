@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../Employee';
 import { EmployeeService } from '../employee.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -30,6 +30,7 @@ export class AddEmployeeComponent {
       Validators.required,
       Validators.maxLength(30),
       Validators.minLength(3),
+      Validators.pattern('^[A-Z]{1}[a-zA-Z\\s]{2,}$'),
     ]),
     image: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),
@@ -38,7 +39,11 @@ export class AddEmployeeComponent {
     date: new FormControl('', Validators.required),
     note: new FormControl('', Validators.required),
   });
-
+  errorData: any = {};
+  submit: boolean = false;
+  update: boolean = false;
+  currentEmployeeId: any;
+  today:Date=new Date()
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -46,6 +51,31 @@ export class AddEmployeeComponent {
     private employeeService: EmployeeService,
     private _snackBar: MatSnackBar
   ) {}
+
+  ngOnInit() {
+    if (this.router.url == '/add') {
+      this.submit = true;
+    } else {
+      this.update = true;
+      this.route.params.subscribe((params) => {
+        this.currentEmployeeId = params['id'];   
+        this.fetchEmployeeData()
+      });
+    }
+  }
+
+  isChecked(department:string){
+    if(this.update){
+      const departmentArray: FormArray = this.employeeForm.get(
+        'department'
+      ) as FormArray;
+      const index = departmentArray.controls.findIndex(
+        (dept) => dept.value === department
+      );
+      return index!==-1?true:false;
+    }
+    return false;
+  }
 
   onDepartmentChange(event: any) {
     const departmentArray: FormArray = this.employeeForm.get(
@@ -74,36 +104,83 @@ export class AddEmployeeComponent {
     console.log('object :>> ', this.employeeForm.get('salary'));
     console.log('formcontols :>> ', this.employeeForm.controls);
     if (this.employeeForm.valid) {
+      const formattedDate = moment(this.employeeForm.get('date')?.value).format(
+        'DD MMM YYYY'
+      );
       let newEmployee: Employee = {
         name: this.employeeForm.get('employeeName')?.value,
-        department: this.employeeForm.get('department')?.value,
-        profileUrl: this.employeeForm.get('image')?.value,
+        departments: this.employeeForm.get('department')?.value,
+        profilePic: this.employeeForm.get('image')?.value,
         gender: this.employeeForm.get('gender')?.value,
         salary: this.employeeForm.get('salary')?.value,
-        startDate: this.employeeForm.get('date')?.value,
+        startDate: formattedDate,
         note: this.employeeForm.get('note')?.value,
       };
-      
-      this.employeeService.setData(newEmployee);
-      this.router.navigate([''], { state: { data: newEmployee } });
+      if (this.submit) {
+        this.addEmployee(newEmployee);
+      } else {
+        this.updateEmployee(newEmployee);
+      }
     } else {
       let i = 0;
-      for (const controlName in this.employeeForm.controls) {      
-        let error = this.employeeForm.controls[controlName].hasError('required');
+      for (const controlName in this.employeeForm.controls) {
+        let error =
+          this.employeeForm.controls[controlName].hasError('required');
         if (controlNames.includes(controlName) && error) {
           setTimeout(() => {
             this._snackBar.open(`${controlName} is required`, 'ok', {
               duration: 2000,
-              verticalPosition: 'bottom', 
+              verticalPosition: 'bottom',
               horizontalPosition: 'end',
             });
           }, i * 2200);
           i++;
         }
-     
-        
       }
     }
+  }
+
+  updateEmployee(employee: Employee) {
+    this.employeeService
+      .updateEmployee(this.currentEmployeeId, employee)
+      .subscribe({
+        next: (result) => {
+          console.log('result :>> ', result);
+          this._snackBar.open(`Employee data successfully updated`, 'ok', {
+            duration: 6000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'end',
+          });
+          this.router.navigate(['']);
+          
+        },
+        error: (error) => {
+          if (error.error.data) {
+            this.errorData = error.error.data;
+            console.log('object :>> ', this.errorData);
+          }
+        },
+      });
+  }
+  
+  addEmployee(employee: Employee) {
+    this.employeeService.addEmployee(employee).subscribe({
+      next: (result) => {
+        console.log('result :>> ', result);
+        this._snackBar.open(`Employee data successfully added`, 'ok', {
+          duration: 6000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'end',
+        });
+        this.router.navigate(['']);
+      },
+      error: (error) => {
+        if (error.error.data) {
+          this.errorData = error.error.data;
+          console.log('object :>> ', this.errorData);
+        }
+      },
+    });
   }
   get fullName(): FormControl {
     return this.employeeForm.get('employeeName') as FormControl;
@@ -112,4 +189,30 @@ export class AddEmployeeComponent {
   resetForm() {
     this.employeeForm.reset();
   }
+
+ fetchEmployeeData() {
+  this.employeeService
+          .getEmployeeData(this.currentEmployeeId)
+          .subscribe((result) => {
+            let employeeData:Employee = result.data;
+            console.log(new Date(employeeData.startDate))
+          
+            this.employeeForm.patchValue({
+              employeeName: employeeData.name,
+              image: employeeData.profilePic,
+              gender: employeeData.gender,
+              department: employeeData.departments,
+              salary: employeeData.salary,
+              date: new Date(employeeData.startDate),
+              note:employeeData.note
+            });
+            const departmentArray: FormArray = this.employeeForm.get(
+              'department'
+            ) as FormArray;
+             employeeData.departments.forEach((dept)=>{
+              departmentArray.push(new FormControl(dept));
+             })
+            console.log(this.employeeForm.get('department')?.value)
+          });
+}
 }

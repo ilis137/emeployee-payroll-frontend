@@ -1,10 +1,10 @@
-export class Employee {
-
-  name!: string;
-  department!: string[];
-  profileUrl!: string;
-  gender!: string;
-  salary!: string;
-  startDate!: Date;
-  note!: string;
+export interface Employee {
+  id?:number;
+  name: string;
+  departments: string[];
+  profilePic: string;
+  gender: string;
+  salary: string;
+  startDate: string;
+  note: string;
 }

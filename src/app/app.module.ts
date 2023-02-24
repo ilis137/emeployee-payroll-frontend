@@ -24,6 +24,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxUiLoaderModule,NgxUiLoaderHttpModule } from "ngx-ui-loader";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +49,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,FormsModule,ReactiveFormsModule,MatDatepickerModule,MatCardModule,MatSelectModule,MatInputModule,
-    MatSliderModule,MatDatepickerModule,MatNativeDateModule,MatSnackBarModule
+    MatSliderModule,MatDatepickerModule,MatNativeDateModule,MatSnackBarModule,HttpClientModule,NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({showForeground:true})
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],

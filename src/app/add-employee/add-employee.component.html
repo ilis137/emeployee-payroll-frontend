@@ -15,17 +15,16 @@
             matInput
             formControlName="employeeName"
           />
-          <mat-hint align="end">{{fullName.value.length||0}}/30</mat-hint>
+          <mat-hint align="end">{{fullName.value?.length||0}}/30</mat-hint>
           <mat-error *ngIf="myError('employeeName', 'required')">This is a required field</mat-error>
           <mat-error *ngIf="myError('employeeName', 'minlength')">Name should contain at least 3 characters</mat-error>
+          <mat-error *ngIf="myError('employeeName', 'pattern')">First letter should be capitalized</mat-error>
           <mat-error *ngIf="myError('employeeName', 'maxlength')">Name should contain at most 30 characters</mat-error>
           <!-- <mat-error *ngIf="employeeForm.get('name')?.hasError('required')">This is a required field</mat-error> -->
-     
-  
         </mat-form-field>
-
         <br />
-
+        <br />
+     
         <!-- Creating profile image selection section in form -->
         <mat-label class="main-tag">Profile image</mat-label>
         <mat-radio-group class="profile-ml" formControlName="image">
@@ -51,7 +50,7 @@
 
         <mat-label class="main-tag">Gender</mat-label>
         <mat-radio-group class="Gender-ml" formControlName="gender">
-          <mat-radio-button class="radio-btn" color="primary" value="Male">
+          <mat-radio-button class="radio-btn" color="primary" value="male">
             <mat-label class="text">Male</mat-label>
           </mat-radio-button>
 
@@ -59,7 +58,7 @@
             class="radio-btn"
             style="margin-left: 33px"
             color="primary"
-            value="Female"
+            value="female"
           >
             <mat-label class="text">Female</mat-label>
           </mat-radio-button>
@@ -72,7 +71,7 @@
 
         <mat-label class="main-tag">Department</mat-label>
         <section class="department-ml">
-          <mat-checkbox *ngFor="let department of departments;index as i" [style.margin-left]="i?'20px':'0px'" (change)="onDepartmentChange($event)" [value]="department"color="primary">
+          <mat-checkbox *ngFor="let department of departments;index as i" [checked]="isChecked(department)" [style.margin-left]="i?'20px':'0px'" (change)="onDepartmentChange($event)" [value]="department"color="primary">
             <mat-label>{{department}}</mat-label>
           </mat-checkbox>
          
@@ -108,7 +107,7 @@
         <mat-label class="main-tag">Start Date</mat-label>
         <mat-form-field class="date-ml" appearance="fill">
        
-        <input matInput [matDatepicker]="picker" formControlName="date">
+        <input matInput [matDatepicker]="picker" [max]="today" formControlName="date">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker  #picker></mat-datepicker> 
@@ -141,7 +140,8 @@
           </button>
 
           <div class="right-buttons">
-            <button class="submit"  type="submit" mat-flat-button>Submit</button>
+            <button class="submit" *ngIf="submit"  type="submit" mat-flat-button>Submit</button>
+            <button class="submit" *ngIf="update"  type="submit" mat-flat-button>Update</button>
             <button class="reset"  (click)="resetForm()" type="reset" mat-flat-button>Reset</button>
           </div>
         </div>

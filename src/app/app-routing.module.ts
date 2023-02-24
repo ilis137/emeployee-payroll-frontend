@@ -22,6 +22,11 @@ const routes: Routes = [
     pathMatch:'full'
   },
   {
+    path: 'update/:id',
+    component:AddEmployeeComponent,
+    pathMatch:'full'
+  },
+  {
     path: '**',
     component:PageNotFoundComponent,
     pathMatch:'full'
